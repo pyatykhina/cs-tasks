@@ -1,0 +1,11 @@
+/Users/tanyapyat/Desktop/cs-tasks/program/obj/Debug/netcoreapp2.1/program.csprojAssemblyReference.cache
+/Users/tanyapyat/Desktop/cs-tasks/program/obj/Debug/netcoreapp2.1/program.csproj.CoreCompileInputs.cache
+/Users/tanyapyat/Desktop/cs-tasks/program/obj/Debug/netcoreapp2.1/program.AssemblyInfoInputs.cache
+/Users/tanyapyat/Desktop/cs-tasks/program/obj/Debug/netcoreapp2.1/program.AssemblyInfo.cs
+/Users/tanyapyat/Desktop/cs-tasks/program/bin/Debug/netcoreapp2.1/program.deps.json
+/Users/tanyapyat/Desktop/cs-tasks/program/bin/Debug/netcoreapp2.1/program.runtimeconfig.json
+/Users/tanyapyat/Desktop/cs-tasks/program/bin/Debug/netcoreapp2.1/program.runtimeconfig.dev.json
+/Users/tanyapyat/Desktop/cs-tasks/program/bin/Debug/netcoreapp2.1/program.dll
+/Users/tanyapyat/Desktop/cs-tasks/program/bin/Debug/netcoreapp2.1/program.pdb
+/Users/tanyapyat/Desktop/cs-tasks/program/obj/Debug/netcoreapp2.1/program.dll
+/Users/tanyapyat/Desktop/cs-tasks/program/obj/Debug/netcoreapp2.1/program.pdb
