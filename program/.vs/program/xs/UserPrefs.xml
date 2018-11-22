@@ -1,8 +1,7 @@
 ﻿<Properties StartupConfiguration="{4101823C-F903-4572-8E26-373E3D4EFBC7}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
     <Files>
-      <File FileName="Program.cs" Line="142" Column="9" />
-      <File FileName="../../Program1.cs" Line="21" Column="32" />
+      <File FileName="Program.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
