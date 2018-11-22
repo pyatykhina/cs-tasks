@@ -19,18 +19,7 @@ namespace ConsoleApplication
             moneyDenomination[2] = CountMoney;
         }
 
-        public int GetMoney() // поля-номиналы -> сумма
-        {
-            int sum = 0;
-            for (int i = 0; i < 3; i++)
-            {
-                sum += moneyDenomination[i] * 10 * (i + 1);
-            }
-
-            return sum;
-        }
-
-        public override string ToString() // override - новая реализация члена, унаследованного от базового класса
+        public string ConvertToString() 
         {
             // преобразует значения объектов в строки на основе указанных форматов и вставляет их в другую строку
             // {0}{1}{2} - номера параметров
@@ -94,7 +83,7 @@ namespace ConsoleApplication
         }
         public int ID 
         { 
-            get { return ID; }
+            get { return Id; }
         }
         public int Min 
         {  
@@ -113,7 +102,7 @@ namespace ConsoleApplication
 
         public override string ToString() // преобразование в строку
         {
-            return int.Parse(countOfMoney.ToString()).ToString("C");  // стандартный числовой формат (валюта)
+            return int.Parse(countOfMoney.ConvertToString()).ToString("C");  // стандартный числовой формат (валюта)
         }
 
         public int Read()
@@ -130,16 +119,46 @@ namespace ConsoleApplication
 
     class ATMoperations
     {
-        public int LoadMoney(ATM atm, int Money)  // внесение денег
+        ATM atm = new ATM(0, 1000);
+        public void Atm()
+        {
+            atm.Display("На вашем счете: " + atm);
+
+            while (true)
+            {
+                atm.Display("Нажмите 0, чтобы внести деньги или 1, чтобы снять");
+                int operationType = atm.Read();
+
+                if (operationType == 0)
+                {
+                    atm.Display("Внесите деньги: ");
+                    int sumIn = atm.Read();
+                    LoadMoney(sumIn);
+                    atm.Display("На вашем счете: " + atm.CountOfMoney.ConvertToString());
+                }
+                else if (operationType == 1)
+                {
+                    atm.Display("Введите снимаемую сумму: ");
+                    int sumOut = atm.Read();
+                    UnloadMoney(sumOut);
+                    atm.Display("На вашем счете: " + atm.CountOfMoney.ConvertToString());
+                }
+                else
+                {
+                    atm.Display("Неизвестная операция, попробуйте заново.");
+                }
+            }
+        }
+
+        public void LoadMoney(int Money)  // внесение денег
         {
             if (Money % 10 != 0)
                 atm.Display("Вносимая сумма должна быть кратна 10.");
 
             else atm.CountOfMoney += Money;
-            return atm.CountOfMoney.GetMoney();
         }
 
-        public int UnloadMoney(ATM atm, int Money)  // снятие денег
+        public void UnloadMoney(int Money)  // снятие денег
         {
             if (Money % 10 != 0)
                 atm.Display("Снимаемая сумма должна быть кратна 10.");
@@ -154,8 +173,6 @@ namespace ConsoleApplication
                 atm.Display("Вы не можете снять больше " + atm.Max + " рублей.");
 
             else atm.CountOfMoney -= Money;
-
-            return atm.CountOfMoney.GetMoney();
         }
     }
 
@@ -163,34 +180,8 @@ namespace ConsoleApplication
     {
         static void Main(string[] args)
         {
-            ATM atm = new ATM(0, 1000);
             ATMoperations atmOperations = new ATMoperations();
-            atm.Display("На вашем счете: " + atm);
-
-            while (true)
-            {
-                atm.Display("Нажмите 0, чтобы внести деньги или 1, чтобы снять");
-                int operationType = atm.Read();
-
-                if (operationType == 0)
-                {
-                    atm.Display("Внесите деньги: ");
-                    int sumIn = atm.Read();
-                    atmOperations.LoadMoney(atm, sumIn);
-                    atm.Display("На вашем счете: " + atm);
-                }
-                else if (operationType == 1)
-                {
-                    atm.Display("Введите снимаемую сумму: ");
-                    int sumOut = atm.Read();
-                    atmOperations.UnloadMoney(atm, sumOut);
-                    atm.Display("На вашем счете: " + atm);
-                }
-                else
-                {
-                    atm.Display("Неизвестная операция, попробуйте заново.");
-                }
-            }
+            atmOperations.Atm();
         }
     }
 }
