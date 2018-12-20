@@ -2,128 +2,124 @@
 
 namespace ConsoleApplication
 {
-    class Point
+    abstract class Integer
     {
-        public int X;
-        public int Y;
+        public double a { get; set; }
+        public double b { get; set; }
 
-        public static int count = 0;
+        public virtual void Display() { }
+        public virtual void Read() { }
 
-        protected string Read()
+        // public virtual void NumberToArray(double number) { }
+
+        public virtual double Sum(double a, double b) { return a + b; }  // сумма 
+        public virtual double Dif(double a, double b) { return a - b; }  // разность 
+        public virtual double Mul(double a, double b) { return a * b; }  // умножение 
+        public virtual double Div(double a, double b) { return a / b; }  // деление 
+    }
+
+    class Decimal : Integer
+    {
+        /* public override void NumberToArray(double number)
         {
-            Console.WriteLine("Введите х: ");
-            string x = Console.ReadLine();
+            int[] array = new int[10];
+            while (number > 0)
+            {
+                for (int i = 0; i < array.Length; i++) 
+                {
+                    array[i] = number % 10;
+                    number /= 10;
+                }
+            }
+        }*/
 
-            Console.WriteLine("Введите y: ");
-            string y = Console.ReadLine();
+        public override double Sum(double a, double b) { return a + b; }
+        public override double Dif(double a, double b) { return a - b; }
+        public override double Mul(double a, double b) { return a * b; }
+        public override double Div(double a, double b) { return a / b; }
 
-            return x + " " + y;
+        public override void Read()
+        {
+            Console.WriteLine("Введите первое число: ");
+            a = double.Parse(Console.ReadLine());
+
+            Console.WriteLine("Введите второе число: ");
+            b = double.Parse(Console.ReadLine());
         }
 
-        protected void Init()
+        public override void Display()
         {
-            string text = Read();
-            string[] coordinates = text.Split(' '); // создает массив подстрок, разбивая входную строку по одному или нескольким разделителям
-            string x = coordinates[0];
-            string y = coordinates[1];
-
-            X = int.Parse(x);
-
-            Y = int.Parse(y);
-        }
-
-        protected string toString()
-        {
-            return X.ToString() + " " + Y.ToString();
+            Console.WriteLine("Первое число в десятичной СЧ: " + a);
+            Console.WriteLine("Второе число в десятичной СЧ: " + b);
+            Console.WriteLine("Сумма двух чисел в десятичной СЧ: " + Sum(a, b));
+            Console.WriteLine("Разность двух чисел в десятичной СЧ: " + Dif(a, b));
+            Console.WriteLine("Произведение двух чисел в десятичной СЧ: " + Mul(a, b));
+            Console.WriteLine("Кратное двух чисел в десятичной СЧ: " + Div(a, b));
+            Console.WriteLine();
         }
     }
 
-    class PointOperation : Point
+    class Binary : Integer
     {
-        public static void MoveToX(Point dot)
+        public override double Sum(double a, double b) { return a + b; }
+        public override double Dif(double a, double b) { return a - b; }
+        public override double Mul(double a, double b) { return a * b; }
+        public override double Div(double a, double b) { return a / b; }
+
+        public override void Read ()
         {
-            Console.WriteLine("Введите смещение по оси ОХ:");
-            int space = int.Parse(Console.ReadLine());
-            dot.X += space;
+            Console.WriteLine("Введите первое число: ");
+            a = double.Parse(Console.ReadLine());
+
+            Console.WriteLine("Введите второе число: ");
+            b = double.Parse(Console.ReadLine());
         }
 
-        public static void MoveToY(Point dot)
+        private double ToBinary(double number) 
         {
-            Console.WriteLine("Введите смещение по оси ОY:");
-            int space = int.Parse(Console.ReadLine());
-            dot.Y += space;
+            return(double.Parse(Convert.ToString(Convert.ToInt64(number), 2)));  // округляет до целого
         }
 
-        public static void DistanceToO(Point dot)
+        public override void Display()
         {
-            double distance = Convert.ToDouble(Math.Sqrt(dot.X * dot.X + dot.Y * dot.Y));
-            Console.WriteLine("Расстояние до начала координат: " + distance.ToString());
-        }
-
-        public static void DistanceBetweenTwoDots(Point frstDot, Point scndDot)
-        {
-            double distance = Convert.ToDouble(Math.Sqrt((frstDot.X - scndDot.X) * (frstDot.X - scndDot.X) + (frstDot.Y - scndDot.Y) * (frstDot.Y - scndDot.Y)));
-            Console.WriteLine("Расстояние между точками: " + distance.ToString());
-        }
-
-        public static bool IsExist(Point frstDot, Point scndDot)
-        {
-            bool isExist = false;
-            if (frstDot.X == scndDot.X && frstDot.Y == scndDot.Y)
-            {
-                Console.WriteLine("Точки совпадают");
-                isExist = true;
-            }
-            else Console.WriteLine("Точки не совпадают");
-            return isExist;
-        }
-
-        public static void ConvertToPolarCoordinates(Point dot)
-        {
-            double r = Math.Sqrt(dot.X * dot.X + dot.Y * dot.Y);
-            double fi = Math.Atan(dot.Y / dot.X) * 180 / Math.PI; // Возвращает угол, тангенс которого равен указанному числу
-            Console.WriteLine("Полярный радиус: " + r.ToString() + "\nПолярный угол: " + fi.ToString() + "°");
-        }
-
-        public void InitOperation()
-        {
-            Init();
-            count++;
-            Console.WriteLine("Создано объектов: " + count);
-        }
-
-        public string toStringOperation()
-        {
-            return toString();
+            Console.WriteLine("Первое число в двоичной СЧ: " + ToBinary(a));
+            Console.WriteLine("Второе число в двоичной СЧ: " + ToBinary(b));
+            Console.WriteLine("Сумма двух чисел в двоичной СЧ: " + ToBinary(Sum(a, b)));
+            Console.WriteLine("Разность двух чисел в двоичной СЧ: " + ToBinary(Dif(a, b)));
+            Console.WriteLine("Произведение двух чисел в двоичной СЧ: " + ToBinary(Mul(a, b)));
+            Console.WriteLine("Кратное двух чисел в двоичной СЧ: " + ToBinary(Div(a, b)));
+            Console.WriteLine();
         }
     }
 
     class Program
     {
-        public static PointOperation DotOperation()
+        static void Main(string[] args)
         {
-            PointOperation dot = new PointOperation();
-            dot.InitOperation();
+            Decimal dec = new Decimal();
+            Binary bin = new Binary();
 
-            PointOperation.MoveToX(dot);
-            PointOperation.MoveToY(dot);
-            PointOperation.DistanceToO(dot);
-            PointOperation.ConvertToPolarCoordinates(dot);
-            Console.WriteLine("Координаты точки: " + dot.toStringOperation());
+            while (true)
+            {
+                Console.WriteLine("Введите 10 для выбора десятичной системы счисления или 2 для двоичной: ");
+                int OperationType = int.Parse(Console.ReadLine());
 
-            return dot;
-        }
-
-        public static void Main(string[] args)
-        {
-            Console.WriteLine("Введите первую точку");
-            Point frstDot = DotOperation();
-
-            Console.WriteLine("Введите вторую точку");
-            Point scndDot = DotOperation();
-
-            PointOperation.DistanceBetweenTwoDots(frstDot, scndDot);
-            PointOperation.IsExist(frstDot, scndDot);
+                if (OperationType == 10)
+                {
+                    dec.Read();
+                    dec.Display();
+                }
+                else if (OperationType == 2)
+                {
+                    bin.Read();
+                    bin.Display();
+                }
+                else
+                {
+                    Console.WriteLine("Некорректный ввод. Попробуйте еще раз. ");
+                    Console.WriteLine();
+                }
+            }
         }
     }
 }
